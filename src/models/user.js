@@ -17,9 +17,37 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   User.init({
-    username: DataTypes.STRING,
-    password: DataTypes.STRING,
-    mail: DataTypes.STRING
+    //validaciones
+    username:{
+      type:DataTypes.STRING,
+    validate:{
+      isAlphanumeric:{
+        msg: "Username must be alphanumeric"
+      }
+    },
+  } ,
+    password: {
+      type:DataTypes.STRING,
+      validate: {
+        //chat gpt
+        isValidPassword(value) {
+          const hasLetter = /[a-zA-Z]/.test(value); // Comprueba si hay al menos una letra
+          const hasNumber = /[0-9]/.test(value); // Comprueba si hay al menos un número
+          const hasValidLength = value.length >= 8; // Comprueba si la longitud es mayor o igual a 8
+          if (!(hasLetter && hasNumber && hasValidLength)){
+            throw new Error("Password must have a letter, a number and al least 8 characters")
+        }
+      }
+      //--
+    }},
+    mail: {
+      type:DataTypes.STRING,
+    validate:{
+      isEmail:{
+        msg: "mail must have email format"
+      }
+    },
+  }
   }, {
     sequelize,
     modelName: 'User',
