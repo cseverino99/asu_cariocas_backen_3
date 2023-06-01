@@ -11,11 +11,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.Mazo, {
+        foreignKey: 'mazoId',
+      });
     }
   }
   Carta.init({
-    suit: DataTypes.STRING,
-    rank: DataTypes.STRING
+    //mazoId: DataTypes.INTEGER,
+    rank: DataTypes.STRING,
+    suit: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Carta',

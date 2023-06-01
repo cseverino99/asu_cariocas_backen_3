@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       //users
-      //games
+      //games´
+      //debería estar tablero acá también
       this.hasMany(models.Player,{
         foreignKey: 'id'
       });

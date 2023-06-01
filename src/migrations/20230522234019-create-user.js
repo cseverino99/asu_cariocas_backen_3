@@ -9,7 +9,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      //restricciones
       username: {
         allowNull: false,
         type: Sequelize.STRING
