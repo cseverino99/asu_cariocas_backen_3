@@ -10,14 +10,14 @@ router.get("games.list", "/list", async (ctx) => {
 
     const gameIds = games.map(game => game.id); // Obtener los IDs de los juegos
 
-    console.log('Game IDs:', gameIds); // Verificar los IDs de los juegos
+    //console.log('Game IDs:', gameIds); // Verificar los IDs de los juegos
 
     const players = await ctx.orm.Player.findAll({ // Consulta de jugadores relacionados
       where: { gameId: gameIds }, // Filtrar jugadores por los IDs de los juegos
       attributes: ['gameId', 'id', 'name'],
     });
 
-    console.log('Players:', players); // Verificar los jugadores relacionados
+    //console.log('Players:', players); // Verificar los jugadores relacionados
 
     const tables = await ctx.orm.Table.findAll({ // Consulta de tableros relacionados
       where: { gameId: gameIds }, // Filtrar tableros por los IDs de los juegos
