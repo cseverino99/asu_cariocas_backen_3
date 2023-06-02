@@ -19,9 +19,10 @@ module.exports = {
     const playersLength = players.length;
     const gamesLength = games.length;
 
-    for (let i = 0; i < playersLength; i++) {
+    for (let i = 0; i < playersLength; i += 1) {
       const player = players[i];
-      const game = games[i % gamesLength]; // Utilizar el operador módulo para asignar los juegos en ciclo
+      // Utilizar el operador módulo para asignar los juegos en ciclo
+      const game = games[i % gamesLength];
 
       const table = {
         playerId: player.id,
@@ -36,7 +37,7 @@ module.exports = {
     await queryInterface.bulkInsert('Tables', tables);
   },
 
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface) {
     await queryInterface.bulkDelete('Tables', null, {});
   },
 };

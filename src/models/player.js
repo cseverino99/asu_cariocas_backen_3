@@ -1,7 +1,7 @@
-'use strict';
 const {
-  Model
+  Model,
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Player extends Model {
     /**
@@ -16,21 +16,21 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.Game, {
         foreignKey: 'gameId',
       });
-      //podria ser erroneo pq no esta creado aún
-      this.hasOne(models.Table,{
-        foreignKey: 'id'
+      // podria ser erroneo pq no esta creado aún
+      this.hasOne(models.Table, {
+        foreignKey: 'id',
       });
-      this.hasOne(models.Mazo,{
-        foreignKey: 'id'
+      this.hasOne(models.Mazo, {
+        foreignKey: 'id',
       });
-      
+
       // Faltaría poner que tiene un tablero (o mazo)
     }
   }
   Player.init({
     name: DataTypes.STRING,
-    //userId: DataTypes.INTEGER,
-    //gameId: DataTypes.INTEGER
+    // userId: DataTypes.INTEGER,
+    // gameId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Player',

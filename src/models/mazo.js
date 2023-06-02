@@ -1,7 +1,7 @@
-'use strict';
 const {
-  Model
+  Model,
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Mazo extends Model {
     /**
@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'playerId',
       });
       this.hasMany(models.Carta, {
-        foreignKey: 'id'
+        foreignKey: 'id',
       });
       // define association here
     }
@@ -25,14 +25,14 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
       },
       // Resto de los atributos del modelo...
     },
     {
       sequelize,
       modelName: 'Mazo',
-    }
+    },
   );
   return Mazo;
 };

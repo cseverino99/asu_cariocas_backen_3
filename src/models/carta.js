@@ -1,7 +1,7 @@
-'use strict';
 const {
-  Model
+  Model,
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Carta extends Model {
     /**
@@ -17,9 +17,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Carta.init({
-    //mazoId: DataTypes.INTEGER,
+    // mazoId: DataTypes.INTEGER,
     rank: DataTypes.STRING,
-    suit: DataTypes.STRING
+    suit: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Carta',
