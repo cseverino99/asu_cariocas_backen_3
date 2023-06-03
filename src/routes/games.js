@@ -14,7 +14,7 @@ router.get('games.list', '/list', async (ctx) => {
 
     const players = await ctx.orm.Player.findAll({ // Consulta de jugadores relacionados
       where: { gameId: gameIds }, // Filtrar jugadores por los IDs de los juegos
-      attributes: ['gameId', 'id', 'name'],
+      attributes: ['gameId', 'id'],
     });
 
     // console.log('Players:', players); // Verificar los jugadores relacionados
