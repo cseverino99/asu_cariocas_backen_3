@@ -2,6 +2,8 @@
 ## Asu-cariocas
 ### Por Agustín Urzua y Cristobal Severino
 
+Bibliografía: Se usó chatGPT para hacer algunos códigos. Se encuentran citados en el código. 
+
 Para esta entrega se trabajó en la definición e implementación del back-end que da soporte a las funcionalidades del juego en "carioca". A continuación se presenta la documentación para cada parte de la app, incluyendo los códigos necesarios para correr las dependencias de la API y las instrucciones para levantar la BDD. Además se incluye un diagrama el cual muestra las entidades y las relaciones del juego y una descripción de los endpoints creados para el juego.
 
 ![Texto](/Diagrama%20ER.jpg)
