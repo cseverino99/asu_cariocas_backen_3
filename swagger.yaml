@@ -1,0 +1,346 @@
+openapi: 3.0.0
+info:
+  title: API Documentation
+  version: 1.0.0
+paths:
+  /users/create:
+    post:
+      tags:
+        - Users
+      summary: Crear un usuario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+      responses:
+        '201':
+          description: Usuario creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Error al crear el usuario
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /users/list:
+    get:
+      tags:
+        - Users
+      summary: Obtener la lista de usuarios
+      responses:
+        '201':
+          description: Lista de usuarios obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '400':
+          description: Error al obtener la lista de usuarios
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /users/show/{id}:
+    get:
+      tags:
+        - Users
+      summary: Obtener un usuario por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: Usuario obtenido exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Error al obtener el usuario
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /players/create:
+    post:
+      tags:
+        - Players
+      summary: Crear un jugador
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlayerInput'
+      responses:
+        '201':
+          description: Jugador creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Player'
+        '400':
+          description: Error al crear el jugador
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /players/list:
+    get:
+      tags:
+        - Players
+      summary: Obtener la lista de jugadores
+      responses:
+        '201':
+          description: Lista de jugadores obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Player'
+        '400':
+          description: Error al obtener la lista de jugadores
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /mazos/list:
+    get:
+      tags:
+        - Mazos
+      summary: Obtener la lista de mazos
+      responses:
+        '201':
+          description: Lista de mazos obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MazoWithCartas'
+        '400':
+          description: Error al obtener la lista de mazos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /games/list:
+    get:
+      tags:
+        - Games
+      summary: Obtener la lista de juegos
+      responses:
+        '200':
+          description: Lista de juegos obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GameWithPlayersAndTables'
+        '400':
+          description: Error al obtener la lista de juegos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /cartas/list:
+    get:
+      tags:
+        - Cartas
+      summary: Obtener la lista de cartas
+      responses:
+        '200':
+          description: Lista de cartas obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Carta'
+        '400':
+          description: Error al obtener la lista de cartas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /cartas/create:
+    post:
+      tags:
+        - Cartas
+      summary: Crear una carta
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartaInput'
+      responses:
+        '201':
+          description: Carta creada exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Carta'
+        '400':
+          description: Error al crear la carta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    UserInput:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    PlayerInput:
+      type: object
+      properties:
+        userId:
+          type: integer
+        gameId:
+          type: integer
+    Player:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+        gameId:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    Game:
+      type: object
+      properties:
+        id:
+          type: integer
+        winnerId:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+          
+    Table:
+      type: object
+      properties:
+        id: 
+          type: integer
+        gameId:
+          type: integer
+        playerId:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    Mazo:
+      type: object
+      properties:
+        id: 
+          type: integer
+        playerId:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    CartaInput:
+      type: object
+      properties:
+        playerId:
+          type: integer
+        rank:
+          type: integer
+        suit:
+          type: integer
+    Carta:
+      type: object
+      properties:
+        id: 
+          type: integer
+        playerId:
+          type: integer
+        rank:
+          type: string
+        suit:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    MazoWithCartas:
+      type: object
+      properties:
+        mazo:
+          $ref: '#/components/schemas/Mazo'
+        cartas:
+          type: array
+          items:
+            $ref: '#/components/schemas/Carta'
+    GameWithPlayersAndTables:
+      type: object
+      properties:
+        game:
+          $ref: '#/components/schemas/Game'
+        players:
+          type: array
+          items:
+            $ref: '#/components/schemas/Player'
+        tables:
+          type: array
+          items:
+            $ref: '#/components/schemas/Table'
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
