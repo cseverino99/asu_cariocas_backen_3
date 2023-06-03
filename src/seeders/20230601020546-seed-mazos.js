@@ -1,5 +1,6 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
+  // por chatgpt
   async up(queryInterface, Sequelize) {
     // Obtener los jugadores existentes
     const players = await queryInterface.sequelize.query(

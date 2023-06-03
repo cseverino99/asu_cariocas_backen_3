@@ -1,3 +1,5 @@
+//se hizo en base a las cápsulas del ramo
+
 const Router = require('koa-router');
 
 const router = new Router();
@@ -17,6 +19,7 @@ router.get('cartas.list', '/list', async (ctx) => {
     ctx.status = 400;
   }
 });
+// por chatgpt
 router.post('cartas.create', '/create', async (ctx) => {
   try {
     const { mazoId, rank, suit } = ctx.request.body; // Obtener los datos del body de la solicitud
@@ -34,5 +37,5 @@ router.post('cartas.create', '/create', async (ctx) => {
     ctx.status = 400;
   }
 });
-
+//---
 module.exports = router;

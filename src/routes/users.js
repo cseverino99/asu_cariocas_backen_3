@@ -1,6 +1,7 @@
 const Router = require('koa-router');
 
 const router = new Router();
+//se hizo en base a las cápsulas del ramo
 
 // endpoint que crea usuarios
 router.post('users.create', '/create', async (ctx) => {

@@ -4,6 +4,7 @@ const router = new Router();
 
 // El siguiente get muestra todos los Games disponibles, con los jugadores
 // y tableros que participan de este
+// por chatgpt
 router.get('games.list', '/list', async (ctx) => {
   try {
     const games = await ctx.orm.Game.findAll(); // Consulta de juegos

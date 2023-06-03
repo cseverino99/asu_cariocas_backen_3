@@ -3,6 +3,7 @@ const Router = require('koa-router');
 const router = new Router();
 
 // Se crea un tablero, se debe entregar el id del jugador y id game
+// por chatgpt
 router.post('tables.create', '/create', async (ctx) => {
   try {
     const table = await ctx.orm.Table.create({

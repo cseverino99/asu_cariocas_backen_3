@@ -3,6 +3,7 @@ const Router = require('koa-router');
 const router = new Router();
 
 // Endpoint GET /mazos/:mazoId
+// por chatgpt
 router.get('mazos.list', '/list', async (ctx) => {
   try {
     const mazos = await ctx.orm.Mazo.findAll(); // Consulta de mazos

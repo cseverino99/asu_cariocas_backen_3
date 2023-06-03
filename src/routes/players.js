@@ -2,6 +2,7 @@ const Router = require('koa-router');
 
 const router = new Router();
 
+//se hizo en base a las cápsulas del ramo
 router.post('players.create', '/create', async (ctx) => {
   try {
     const player = await ctx.orm.Player.create({

@@ -1,4 +1,5 @@
 module.exports = {
+  // por chatgpt
   async up(queryInterface, Sequelize) {
     const playersQuery = 'SELECT id FROM "Players";';
     const gamesQuery = 'SELECT id FROM "Games";';

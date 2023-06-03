@@ -1,3 +1,6 @@
+//Para la creación de rutas se utiliza el paquete koa-router, el cual permite crear rutas de manera sencilla y rápida.
+//se hizo en base a las cápsulas del ramo
+
 const Router = require('koa-router');
 const cartas = require('./routes/cartas');
 const users = require('./routes/users');

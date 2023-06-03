@@ -2,6 +2,7 @@
 module.exports = {
   async up(queryInterface) {
     // Creación de usuarios
+    //por chatgpt
     await queryInterface.bulkInsert('Users', [
       {
         username: 'usuario1',
