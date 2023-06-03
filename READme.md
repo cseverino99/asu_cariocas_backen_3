@@ -49,6 +49,26 @@ Una vez que están creadas las tablas y pobladas con las semillas, se debe corre
 
     yarn dev
 
+    Para correr swagger y probar la API vamos al browser y buscamos http://localhost:3000/docs.
+    Ahi se puede probar la API, hay que tener en cuenta las vaidaciones
+
+### Validaciones
+
+### User
+username: alfanumérico, único
+mail: email format, único
+password: 8 caracteres, un digito y un caracter
+
+### User
+username: alfanumérico, único
+mail: email format, único
+password: 8 caracteres, un digito y un caracter
+
+### Carta
+rank: pertenece a ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
+suit: pertenece a ['Spades', 'Hearts', 'Diamonds', 'Clubs']
+
+
 Los distintos endpoints creados están en la carpeta 'src/routes' a continación una explicación de cada uno de estos.
 
 ### users.js
