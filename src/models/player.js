@@ -2,7 +2,7 @@ const {
   Model,
 } = require('sequelize');
 
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize) => {
   class Player extends Model {
     /**
      * Helper method for defining associations.
@@ -23,15 +23,9 @@ module.exports = (sequelize, DataTypes) => {
       this.hasOne(models.Mazo, {
         foreignKey: 'id',
       });
-
-      // Faltaría poner que tiene un tablero (o mazo)
     }
   }
-  Player.init({
-    name: DataTypes.STRING,
-    // userId: DataTypes.INTEGER,
-    // gameId: DataTypes.INTEGER
-  }, {
+  Player.init({}, {
     sequelize,
     modelName: 'Player',
   });

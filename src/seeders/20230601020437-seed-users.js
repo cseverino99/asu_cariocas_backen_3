@@ -34,7 +34,7 @@ module.exports = {
     ]);
   },
 
-  // async down(queryInterface, Sequelize) {
-  //   // Agrega aquí la lógica para revertir la inserción de usuarios si es necesario
-  // },
+  async down(queryInterface) {
+    await queryInterface.bulkDelete('Users', null, {});
+  },
 };

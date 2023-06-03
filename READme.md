@@ -23,4 +23,4 @@ para el caso de nuestro proyecto este archivo tiene la siguiente forma:
 
     DB_HOST = 'localhost'
 
-# API 
+# API

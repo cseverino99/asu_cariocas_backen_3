@@ -8,8 +8,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      winner: {
-        type: Sequelize.STRING,
+      winnerId: {
+        type: Sequelize.INTEGER,
+        references: { model: 'Users', key: 'id' },
       },
       createdAt: {
         allowNull: false,

@@ -43,7 +43,7 @@ module.exports = {
     await queryInterface.bulkInsert('Cartas', cartas);
   },
 
-  // async down(queryInterface, Sequelize) {
-  //   // Agrega aquí la lógica para revertir la inserción de cartas si es necesario
-  // },
+  async down(queryInterface) {
+    await queryInterface.bulkDelete('Cartas', null, {});
+  },
 };

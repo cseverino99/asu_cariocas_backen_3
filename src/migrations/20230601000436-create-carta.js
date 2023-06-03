@@ -18,9 +18,11 @@ module.exports = {
       },
       rank: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       suit: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,

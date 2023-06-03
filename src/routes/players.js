@@ -5,7 +5,6 @@ const router = new Router();
 router.post('players.create', '/create', async (ctx) => {
   try {
     const player = await ctx.orm.Player.create({
-      name: ctx.request.body.name,
       userId: ctx.request.body.userId,
       gameId: ctx.request.body.gameId,
     });

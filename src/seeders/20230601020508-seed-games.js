@@ -4,19 +4,18 @@ module.exports = {
     // Creación de juegos
     await queryInterface.bulkInsert('Games', [
       {
-        winner: 'Equipo A',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        winner: 'Equipo B',
+        winnerId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
     ]);
   },
 
-  // async down(queryInterface, Sequelize) {
-  //   // Agrega aquí la lógica para revertir la inserción de juegos si es necesario
-  // },
+  async down(queryInterface) {
+    await queryInterface.bulkDelete('Games', null, {});
+  },
 };

@@ -23,7 +23,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Game.init({
-    winner: DataTypes.STRING,
+    winnerId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
   }, {
     sequelize,
     modelName: 'Game',
