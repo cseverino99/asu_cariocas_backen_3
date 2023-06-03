@@ -22,5 +22,154 @@ para el caso de nuestro proyecto este archivo tiene la siguiente forma:
     DB_NAME = asu_cariocas
 
     DB_HOST = 'localhost'
+    
+Para instalar la BDD se debe, en primer lugar instalar postgresql, para eso nos basamos en las cápsulas del ramo, específicamente la cápsula 6 de "Configuración Postgres"
 
-# API
+Una vez instalado se debe empezar el servidor con el siguiente código
+
+    sudo service postgresql start
+
+Luego para conectarse a la BDD se debe crear el usuario con las credenciales explicadas anteriormente. Es importante que el usaurio que se cree tenga las carácterísticas de SuperUser, para eso se debe correr el código:
+
+    sudo -u postgres createuser --superuser "nombre_usuario"
+
+A continución y como parte más importante, se deben correr las migraciones y las semillas creadas para crear las tablas y poblarlas de datos, con sus respectivas dependencias mostadas en el diagrama. Para ello se deben correr los siguientes código
+
+    **yarn sequelize-cli db:migrate para actualizar la db
+
+    **yarn sequelize-cli db:migrate:undo:all para deshacer las misgraciones
+
+    **yarn sequelize-cl db:seed:all para poblar las tablas creadas
+
+Un ejemplo de lo anterior es el archivo ubicado en la carpeta ´src/seeders/...-seed-mazos.js´ que pobla la tabla "Mazos" pero obteniendo los id de la tabla "Players" y "Tables" para poder identificar que mazo corresponde a cada jugador de y mostrarlo junto con su tablero.
+
+# API 
+
+Una vez que están creadas las tablas y pobladas con las semillas, se debe correr el siguiente código para empezar la apliación y poder hacer uso de las funcionalidades y endpoints
+
+    yarn dev
+
+Los distintos endpoints creados están en la carpeta 'src/routes' a continación una explicación de cada uno de estos.
+
+### users.js
+
+Tiene dos tipos de consulta, POST y GET, el primer endpoint recibe una consulta del tipo POST y se encuentra en "users.create", "/create", la cuál recibe un arreglo del siguiente tipo:
+    
+    {
+    "name": "John Doe",
+    "email": "johndoe@example.com",
+    "password": "12345password"
+    }
+Y en caso de cumplir las validaciones crea el usuario con las credenciales dadas.
+
+Los otras consultas son del tipo GET se encuentran en las siguientes ubiaciones:"users.list", "/list" y  "users.show", "/show/:id". Las cuales entregan una lista de usuarios y un usuario por ID
+
+### tables.js
+
+Tiene dos tipos de consulta, POST y GET, el primer endpoint recibe una consulta del tipo POST y se encuentra en "tables.create", "/create", la cuál recibe un arreglo del siguiente tipo:
+    
+    {
+    "gameID": "1",
+    "playerID": "1",
+    }
+
+Y en caso de cumplir las validaciones crea el tablero con las credenciales dadas.
+
+Los otras consultas son del tipo GET se encuentran en las siguientes ubiaciones:"tables.list", "/list" . Las cuales entregan una lista de tableros con sus atributos correspondientes
+
+### players.js
+
+Tiene dos tipos de consulta, POST y GET, el primer endpoint recibe una consulta del tipo POST y se encuentra en "players.create", "/create", la cuál recibe un arreglo del siguiente tipo:
+    
+    {
+    "name": "jugador_1",
+    "gameID": "1",
+    "userID": "1",
+    }
+
+Y en caso de cumplir las validaciones crea el jugador con las credenciales dadas.
+
+Los otras consultas son del tipo GET se encuentran en las siguientes ubiaciones:"player.list", "/list" . Las cuales entregan una lista de los jugadores
+
+### mazos.js
+
+Tiene un tipos de consulta,  GET,  se encuentran en las siguientes ubiaciones:"mazos.list", "/list" . Las cuales entregan una lista de los jmazos, pero a la vez realizan las consultas as otras tablas para obtener información acerca de los juagdores que poseen estos mazos y las cartas que componen este mazo. Esta es una de las funcionalidades más importantes del juego porque muestra las cartas propias de cada jugador, es decir corresponde a una jugada, a continuación una muestra de como se muestra:
+
+    {
+        "mazo": {
+            "id": 3,
+            "createdAt": "2023-06-01T03:57:45.375Z",
+            "updatedAt": "2023-06-01T03:57:45.375Z",
+            "playerId": 1
+        },
+        "cartas": [
+            {
+                "id": 1,
+                "rank": "A",
+                "suit": "Spades",
+                "mazoId": 3
+            },
+            {
+                "id": 2,
+                "rank": "K",
+                "suit": "Hearts",
+                "mazoId": 3
+            },
+            {
+                "id": 3,
+                "rank": "Q",
+                "suit": "Diamonds",
+                "mazoId": 3
+            },
+            {
+                "id": 4,
+                "rank": "J",
+                "suit": "Clubs",
+                "mazoId": 3
+            }
+        ]
+    },
+    
+### games.js
+
+Tiene un tipo de consulta,  GET,  se encuentran en las siguientes ubiaciones:"games.list", "/list" . Las cuales entregan una lista de los juegos, pero a la vez realizan las consultas as otras tablas para obtener información acerca de los juagdores que participan de este juego y los tableros (por lo tantos los mazos y cartas) de cada uno. Esta es una de las funcionalidades más importantes del juego porque muestra las salas de juego y quienes participan en cada uno:
+
+    {
+        "game": {
+            "id": 1,
+            "winner": "Equipo A",
+            "createdAt": "2023-06-01T02:33:38.945Z",
+            "updatedAt": "2023-06-01T02:33:38.945Z"
+        },
+        "players": [
+            {
+                "gameId": 1,
+                "id": 1,
+                "name": "Jugador 1"
+            },
+            {
+                "gameId": 1,
+                "id": 2,
+                "name": "Jugador 2"
+            },
+            {
+                "gameId": 1,
+                "id": 5,
+                "name": "Jugador 5"
+            }
+        ],
+        "tables": [
+            {
+                "gameId": 1,
+                "id": 1
+            },
+            {
+                "gameId": 1,
+                "id": 3
+            },
+            {
+                "gameId": 1,
+                "id": 5
+            }
+        ]
+    },
