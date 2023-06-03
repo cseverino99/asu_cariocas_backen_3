@@ -1,8 +1,8 @@
-'use strict';
 const {
-  Model
+  Model,
 } = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
+
+module.exports = (sequelize) => {
   class Player extends Model {
     /**
      * Helper method for defining associations.
@@ -16,15 +16,16 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.Game, {
         foreignKey: 'gameId',
       });
-      
-      // define association here
+      // podria ser erroneo pq no esta creado aún
+      this.hasOne(models.Table, {
+        foreignKey: 'id',
+      });
+      this.hasOne(models.Mazo, {
+        foreignKey: 'id',
+      });
     }
   }
-  Player.init({
-    name: DataTypes.STRING,
-    userId: DataTypes.INTEGER,
-    gameId: DataTypes.INTEGER
-  }, {
+  Player.init({}, {
     sequelize,
     modelName: 'Player',
   });

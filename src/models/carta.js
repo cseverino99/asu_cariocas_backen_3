@@ -1,7 +1,7 @@
-'use strict';
 const {
-  Model
+  Model,
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Carta extends Model {
     /**
@@ -11,14 +11,37 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.Mazo, {
+        foreignKey: 'mazoId',
+      });
     }
   }
   Carta.init({
-    suit: DataTypes.STRING,
-    rank: DataTypes.STRING
+    // mazoId: DataTypes.INTEGER,
+    suit: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        isIn: {
+          args: [['pica', 'corazon', 'diamante', 'trebol']],
+          msg: 'El valor de "suit" debe ser pica, corazon, diamante o trebol',
+        },
+      },
+    },
+    rank: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        isIn: {
+          args: [['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']],
+          msg: 'El valor de "rank" debe ser A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q o K',
+        },
+      },
+    },
   }, {
     sequelize,
     modelName: 'Carta',
+    tableName: 'Cartas',
   });
   return Carta;
 };
