@@ -206,10 +206,13 @@ components:
       properties:
         username:
           type: string
+          example: juanperez
         password:
           type: string
+          example: contraseña1234
         mail:
           type: string
+          example: juan.perez@example.com
     User:
       type: object
       properties:
@@ -232,8 +235,10 @@ components:
       properties:
         userId:
           type: integer
+          example: 1
         gameId:
           type: integer
+          example: 1
     Player:
       type: object
       properties:
@@ -294,18 +299,21 @@ components:
     CartaInput:
       type: object
       properties:
-        playerId:
+        mazoId:
           type: integer
+          example: 1
         rank:
           type: string
+          example: "A"
         suit:
           type: string
+          example: "Clubs"
     Carta:
       type: object
       properties:
         id: 
           type: integer
-        playerId:
+        mazoId:
           type: integer
         rank:
           type: string
