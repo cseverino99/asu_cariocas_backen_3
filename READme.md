@@ -82,7 +82,6 @@ Los otras consultas son del tipo GET se encuentran en las siguientes ubiaciones:
 Tiene dos tipos de consulta, POST y GET, el primer endpoint recibe una consulta del tipo POST y se encuentra en "players.create", "/create", la cuál recibe un arreglo del siguiente tipo:
     
     {
-    "name": "jugador_1",
     "gameID": "1",
     "userID": "1",
     }
@@ -134,28 +133,22 @@ Tiene un tipos de consulta,  GET,  se encuentran en las siguientes ubiaciones:"m
 
 Tiene un tipo de consulta,  GET,  se encuentran en las siguientes ubiaciones:"games.list", "/list" . Las cuales entregan una lista de los juegos, pero a la vez realizan las consultas as otras tablas para obtener información acerca de los juagdores que participan de este juego y los tableros (por lo tantos los mazos y cartas) de cada uno. Esta es una de las funcionalidades más importantes del juego porque muestra las salas de juego y quienes participan en cada uno:
 
+ [
     {
         "game": {
             "id": 1,
-            "winner": "Equipo A",
-            "createdAt": "2023-06-01T02:33:38.945Z",
-            "updatedAt": "2023-06-01T02:33:38.945Z"
+            "winnerId": null,
+            "createdAt": "2023-06-03T01:30:24.756Z",
+            "updatedAt": "2023-06-03T01:30:24.756Z"
         },
         "players": [
             {
                 "gameId": 1,
-                "id": 1,
-                "name": "Jugador 1"
+                "id": 1
             },
             {
                 "gameId": 1,
-                "id": 2,
-                "name": "Jugador 2"
-            },
-            {
-                "gameId": 1,
-                "id": 5,
-                "name": "Jugador 5"
+                "id": 2
             }
         ],
         "tables": [
@@ -166,10 +159,7 @@ Tiene un tipo de consulta,  GET,  se encuentran en las siguientes ubiaciones:"ga
             {
                 "gameId": 1,
                 "id": 3
-            },
-            {
-                "gameId": 1,
-                "id": 5
             }
         ]
-    },
+    }
+]
