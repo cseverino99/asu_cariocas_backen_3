@@ -45,4 +45,19 @@ router.get('games.list', '/list', async (ctx) => {
   }
 });
 
+router.post('games.create', '/create', async (ctx) => {
+  try {
+    const { winnerId } = ctx.request.body;
+    const game = await ctx.orm.Game.create({
+      winnerId, // Crear la nueva carta en la base de datos
+    });
+
+    ctx.body = game;
+    ctx.status = 201;
+  } catch (error) {
+    ctx.body = error;
+    ctx.status = 400;
+  }
+});
+
 module.exports = router;

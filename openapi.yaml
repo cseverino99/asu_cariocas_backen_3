@@ -135,6 +135,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /games/create:
+    post:
+      tags:
+        - Games
+      summary: Crear un juego
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GameInput'
+      responses:
+        '201':
+          description: Juego creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+        '400':
+          description: Error al crear el juego
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /games/list:
     get:
       tags:
@@ -267,7 +291,12 @@ components:
         updatedAt:
           type: string
           format: date-time
-          
+    GameInput:
+      type: object
+      properties:
+        winnerId:
+          type: integer
+          example: 1
     Table:
       type: object
       properties:
