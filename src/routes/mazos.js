@@ -35,4 +35,19 @@ router.get('mazos.list', '/list', async (ctx) => {
   }
 });
 
+router.post('mazos.create', '/create', async (ctx) => {
+  try {
+    const { playerId } = ctx.request.body;
+    const mazo = await ctx.orm.Mazo.create({
+      playerId,
+    });
+
+    ctx.body = mazo;
+    ctx.status = 201;
+  } catch (error) {
+    ctx.body = error;
+    ctx.status = 400;
+  }
+});
+
 module.exports = router;

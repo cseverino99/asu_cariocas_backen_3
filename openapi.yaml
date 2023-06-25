@@ -115,6 +115,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /mazos/create:
+    post:
+      tags:
+        - Mazos
+      summary: Crear un mazo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MazoInput'
+      responses:
+        '201':
+          description: Mazo creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mazo'
+        '400':
+          description: Error al crear el juego
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /mazos/list:
     get:
       tags:
@@ -131,6 +155,50 @@ paths:
                   $ref: '#/components/schemas/MazoWithCartas'
         '400':
           description: Error al obtener la lista de mazos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /cartas/create:
+    post:
+      tags:
+        - Cartas
+      summary: Crear una carta
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartaInput'
+      responses:
+        '201':
+          description: Carta creada exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Carta'
+        '400':
+          description: Error al crear la carta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /cartas/list:
+    get:
+      tags:
+        - Cartas
+      summary: Obtener la lista de cartas
+      responses:
+        '200':
+          description: Lista de cartas obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Carta'
+        '400':
+          description: Error al obtener la lista de cartas
           content:
             application/json:
               schema:
@@ -179,46 +247,46 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /cartas/list:
-    get:
-      tags:
-        - Cartas
-      summary: Obtener la lista de cartas
-      responses:
-        '200':
-          description: Lista de cartas obtenida exitosamente
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Carta'
-        '400':
-          description: Error al obtener la lista de cartas
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /cartas/create:
+  /tables/create:
     post:
       tags:
-        - Cartas
-      summary: Crear una carta
+        - Tables
+      summary: Crear un Tablero
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CartaInput'
+              $ref: '#/components/schemas/TableInput'
       responses:
         '201':
-          description: Carta creada exitosamente
+          description: Tablero creado exitosamente
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Carta'
+                $ref: '#/components/schemas/Table'
         '400':
-          description: Error al crear la carta
+          description: Error al crear el tablero
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /tables/list:
+    get:
+      tags:
+        - Tables
+      summary: Obtener la lista de tableros
+      responses:
+        '200':
+          description: Lista de tableros obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Table'
+        '400':
+          description: Error al obtener la lista de tableros
           content:
             application/json:
               schema:
@@ -312,6 +380,15 @@ components:
         updatedAt:
           type: string
           format: date-time
+    TableInput:
+      type: object
+      properties:
+        gameId:
+          type: integer
+          example: 1
+        playerId:
+          type: integer
+          example: 1
     Mazo:
       type: object
       properties:
@@ -325,6 +402,12 @@ components:
         updatedAt:
           type: string
           format: date-time
+    MazoInput:
+      type: object
+      properties:
+        playerId:
+          type: integer
+          example: 1
     CartaInput:
       type: object
       properties:
@@ -363,6 +446,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Carta'
+    TableWithPlayer:
+      type: object
+      properties:
+        mazo:
+          $ref: '#/components/schemas/Table'
+        cartas:
+          type: array
+          items:
+            $ref: '#/components/schemas/Player'
     GameWithPlayersAndTables:
       type: object
       properties:
