@@ -2,6 +2,7 @@ const Koa = require('koa');
 const logger = require('koa-logger');
 const { koaBody } = require('koa-body');
 const { koaSwagger } = require('koa2-swagger-ui');
+const cors = require('@koa/cors');
 const yamljs = require('yamljs');
 const router = require('./router');
 const orm = require('./models');
@@ -17,7 +18,7 @@ router.get(
 );
 
 app.context.orm = orm;
-
+app.use(cors());
 app.use(logger());
 app.use(koaBody());
 

@@ -1,4 +1,4 @@
-//se hizo en base a las cápsulas del ramo
+// se hizo en base a las cápsulas del ramo
 
 const Router = require('koa-router');
 
