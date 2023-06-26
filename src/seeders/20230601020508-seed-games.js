@@ -2,7 +2,7 @@
 module.exports = {
   async up(queryInterface) {
     // Creación de juegos
-    //por chatgpt
+    // por chatgpt
     await queryInterface.bulkInsert('Games', [
       {
         createdAt: new Date(),
