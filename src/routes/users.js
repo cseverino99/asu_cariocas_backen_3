@@ -1,19 +1,8 @@
 const Router = require('koa-router');
 
 const router = new Router();
-//se hizo en base a las cápsulas del ramo
+// se hizo en base a las cápsulas del ramo
 
-// endpoint que crea usuarios
-router.post('users.create', '/create', async (ctx) => {
-  try {
-    const user = await ctx.orm.User.create(ctx.request.body);
-    ctx.body = user;
-    ctx.status = 201;
-  } catch (error) {
-    ctx.body = error;
-    ctx.status = 400;
-  }
-});
 // endpoin que lista usuarios
 router.get('users.list', '/list', async (ctx) => {
   try {
