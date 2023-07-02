@@ -37,9 +37,11 @@ router.get('mazos.list', '/list', async (ctx) => {
 
 router.post('mazos.create', '/create', async (ctx) => {
   try {
-    const { playerId } = ctx.request.body;
+    const { playerId, mazo_central, mazo_basura } = ctx.request.body;
     const mazo = await ctx.orm.Mazo.create({
       playerId,
+      mazo_central,
+      mazo_basura,
     });
 
     ctx.body = mazo;
