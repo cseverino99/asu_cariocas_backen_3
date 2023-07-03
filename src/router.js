@@ -18,7 +18,7 @@ const router = new Router();
 router.use(authentication.routes());
 
 router.use(jwtMiddleware({ secret: process.env.JWT_SECRET }));
-router.use('/users', users.routes());//bajar esto para q se cumpla jwt
+router.use('/users', users.routes());
 router.use('/cartas', cartas.routes());
 
 router.use('/games', games.routes());

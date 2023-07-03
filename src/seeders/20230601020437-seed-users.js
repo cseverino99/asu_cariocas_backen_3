@@ -1,5 +1,6 @@
 /** @type {import('sequelize-cli').Migration} */
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+
 module.exports = {
   async up(queryInterface) {
     // Creación de usuarios
@@ -30,6 +31,14 @@ module.exports = {
         username: 'usuario4',
         password: await bcrypt.hash('contraseña4', 10),
         mail: 'usuario4@example.com',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        username: 'admin',
+        password: await bcrypt.hash('admin12345', 10),
+        mail: 'admin@example.com',
+        is_admin: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
