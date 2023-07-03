@@ -29,7 +29,9 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "deploy": "node start.js"
+    "deploy": "node start.js",
+    "db:migrate": "sequelize db:migrate",
+    "db:seed": "sequelize db:seed:all"
   },
   "devDependencies": {
     "eslint": "^7.32.0 || ^8.2.0",
