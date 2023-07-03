@@ -9,7 +9,6 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        winnerId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       },

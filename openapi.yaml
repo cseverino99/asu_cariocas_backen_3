@@ -411,7 +411,7 @@ components:
     CartaInput:
       type: object
       properties:
-        mazoId:
+        mazo_id:
           type: integer
           example: 1
         rank:
@@ -425,7 +425,7 @@ components:
       properties:
         id: 
           type: integer
-        mazoId:
+        mazo_id:
           type: integer
         rank:
           type: string

@@ -2,6 +2,7 @@ const Router = require('koa-router');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
+const bcrypt = require('bcrypt');
 
 dotenv.config();
 
@@ -22,9 +23,12 @@ router.post('authentication.signup', '/signup', async (ctx) => {
     return;
   }
   try {
+    const saltRounds = 10;
+    const hashPassword = await bcrypt.hash(authInfo.password, saltRounds);
+
     user = await ctx.orm.User.create({
       username: authInfo.username,
-      password: authInfo.password,
+      password: hashPassword,
       mail: authInfo.email,
     });
   } catch (error) {
@@ -56,7 +60,10 @@ router.post('authentication.login', '/login', async (ctx) => {
   }
   console.log(user.password);
   console.log(authInfo.password);
-  if (user.password === authInfo.password) {
+
+  const validPassword = await bcrypt.compare(authInfo.password, user.password);
+
+  if (validPassword) {
     ctx.body = {
       username: user.username,
       email: user.mail,
@@ -75,8 +82,10 @@ router.post('authentication.login', '/login', async (ctx) => {
   const token = jwt.sign(
     { scope: ['user'] },
     JWT_PRIVATE_KEY,
-    { subject: user.id.toString() },
-    { expiresIn: expirationSeconds },
+    {
+      subject: user.id.toString(),
+      expiresIn: expirationSeconds
+    }
   );
   ctx.body = {
     access_token: token,

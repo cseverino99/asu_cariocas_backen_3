@@ -6,7 +6,9 @@ const router = new Router();
 // endpoin que lista usuarios
 router.get('users.list', '/list', async (ctx) => {
   try {
-    const users = await ctx.orm.User.findAll();
+    const users = await ctx.orm.User.findAll({
+      attributes: ['id', 'username', 'password', 'mail', 'is_admin'],
+    });
     ctx.body = users;
     ctx.status = 201;
   } catch (error) {
