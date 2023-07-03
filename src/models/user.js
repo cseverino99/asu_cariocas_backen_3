@@ -49,6 +49,9 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
     },
+    is_admin: {
+      type: DataTypes.BOOLEAN,
+    },
   }, {
     sequelize,
     modelName: 'User',

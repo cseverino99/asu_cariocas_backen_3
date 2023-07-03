@@ -1,19 +1,31 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  // por chatgpt
   async up(queryInterface, Sequelize) {
     // Obtener los jugadores existentes
     const players = await queryInterface.sequelize.query(
       'SELECT id FROM "Players";',
       { type: Sequelize.QueryTypes.SELECT },
     );
-    // Crear mazos para cada jugador asignando un tablero aleatorio
+
     const currentDate = new Date();
-    const mazos = players.map((player) => ({
-      playerId: player.id,
-      createdAt: currentDate,
-      updatedAt: currentDate,
-    }));
+    const mazos = players.map((player) => {
+      let mazo_central = false;
+      let mazo_basura = false;
+
+      if (player.id === 1) {
+        mazo_central = true;
+      } else if (player.id === 2) {
+        mazo_basura = true;
+      }
+
+      return {
+        player_id: player.id,
+        createdAt: currentDate,
+        updatedAt: currentDate,
+        mazo_central,
+        mazo_basura,
+      };
+    });
 
     await queryInterface.bulkInsert('Mazos', mazos);
   },

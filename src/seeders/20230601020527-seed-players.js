@@ -1,6 +1,6 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  //por chatgpt
+  // por chatgpt
   async up(queryInterface, Sequelize) {
     // Obtener los usuarios existentes
     const users = await queryInterface.sequelize.query(
@@ -16,13 +16,13 @@ module.exports = {
 
     // Crear jugadores a partir de los usuarios existentes
     await queryInterface.bulkInsert('Players', [
-      {
+      { // ID personalizado para el jugador
         userId: users[0].id,
         gameId: games[0].id,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
-      {
+      { // ID personalizado para el jugador
         userId: users[1].id,
         gameId: games[0].id,
         createdAt: new Date(),

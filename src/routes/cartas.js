@@ -1,17 +1,15 @@
-//se hizo en base a las cápsulas del ramo
+/* eslint-disable camelcase */
+// se hizo en base a las cápsulas del ramo
 
 const Router = require('koa-router');
 
 const router = new Router();
 
-// por chatgpt
-// const suits = ['pica', 'corazon', 'diamante', 'trebol'];
-// const ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
-// solo un mazo
-
 router.get('cartas.list', '/list', async (ctx) => {
   try {
-    const cartas = await ctx.orm.Carta.findAll();
+    const cartas = await ctx.orm.Carta.findAll({
+      attributes: ['id', 'rank', 'suit', 'createdAt', 'updatedAt', 'mazo_id', 'imagen'],
+    });
     ctx.body = cartas;
     ctx.status = 200;
   } catch (error) {
@@ -19,13 +17,14 @@ router.get('cartas.list', '/list', async (ctx) => {
     ctx.status = 400;
   }
 });
+
 // por chatgpt
 router.post('cartas.create', '/create', async (ctx) => {
   try {
-    const { mazoId, rank, suit } = ctx.request.body; // Obtener los datos del body de la solicitud
+    const { mazo_id, rank, suit } = ctx.request.body; // Obtener los datos del body de la solicitud
 
     const carta = await ctx.orm.Carta.create({ // Crear la nueva carta en la base de datos
-      mazoId,
+      mazo_id,
       rank,
       suit,
     });
