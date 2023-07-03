@@ -12,14 +12,13 @@ router.get('mazos.list', '/list', async (ctx) => {
 
     console.log('Mazos IDs:', mazo_ids); // Verificar los IDs de los mazos
 
-    
-    const gamesWithPlayersAndTables = mazos.map((mazo) => {
-      // Combinar los resultados en un solo objeto
-      
-      return {
-        mazo
-      };
-    });
+    const gamesWithPlayersAndTables = mazos.map((mazo) =>
+    // Combinar los resultados en un solo objeto
+
+      // eslint-disable-next-line implicit-arrow-linebreak
+      ({
+        mazo,
+      }));
 
     ctx.body = gamesWithPlayersAndTables;
     ctx.status = 201;
@@ -33,11 +32,11 @@ router.get('mazos.cartas', '/:id/cartas', async (ctx) => {
   try {
     const mazoId = parseInt(ctx.params.id, 10);
 
-    //console.log(mazoId)
-    
+    // console.log(mazoId)
+
     const mazo = await ctx.orm.Mazo.findByPk(mazoId); // Consultar el mazo correspondiente al ID
-    //console.log(":")
-    //console.log(mazo.get())
+    // console.log(":")
+    // console.log(mazo.get())
     if (!mazo) {
       ctx.body = 'Mazo no encontrado';
       ctx.status = 404;
@@ -61,7 +60,6 @@ router.get('mazos.cartas', '/:id/cartas', async (ctx) => {
     ctx.status = 400;
   }
 });
-
 
 router.post('mazos.create', '/create', async (ctx) => {
   try {
@@ -97,9 +95,7 @@ router.patch('mazos.repartir', '/repartir', async (ctx) => {
     }
 
     await Promise.all(
-      cartasOriginales.map((carta) =>
-        carta.update({ mazo_id: mazo_destino_id })
-      )
+      cartasOriginales.map((carta) => carta.update({ mazo_id: mazo_destino_id })),
     );
 
     ctx.body = 'Cartas movidas exitosamente';
@@ -134,7 +130,7 @@ router.patch('mazos.botar', '/botar', async (ctx) => {
 
 router.patch('mazos.robar', '/robar', async (ctx) => {
   try {
-    const { mazo_id} = ctx.request.body;
+    const { mazo_id } = ctx.request.body;
 
     // Obtener una carta aleatoria del mazo de origen
     const cartaAleatoria = await ctx.orm.Carta.findOne({
@@ -149,7 +145,7 @@ router.patch('mazos.robar', '/robar', async (ctx) => {
     }
 
     // Mover la carta al mazo de destino
-    await cartaAleatoria.update({ mazo_id: mazo_id });
+    await cartaAleatoria.update({ mazo_id });
 
     ctx.body = 'Carta movida exitosamente';
     ctx.status = 200;
@@ -158,8 +154,5 @@ router.patch('mazos.robar', '/robar', async (ctx) => {
     ctx.status = 400;
   }
 });
-
-
-
 
 module.exports = router;

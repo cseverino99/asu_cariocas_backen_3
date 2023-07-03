@@ -2,17 +2,12 @@ const Router = require('koa-router');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
+// eslint-disable-next-line import/no-extraneous-dependencies
 const bcrypt = require('bcrypt');
 
 dotenv.config();
 
 const router = new Router();
-
-// {
-//     "email": "micorreo@correo.com",
-//     "username": "pepito123",
-//     "password": "pepito321"
-// }
 
 router.post('authentication.signup', '/signup', async (ctx) => {
   const authInfo = ctx.request.body;
@@ -25,11 +20,15 @@ router.post('authentication.signup', '/signup', async (ctx) => {
   try {
     const saltRounds = 10;
     const hashPassword = await bcrypt.hash(authInfo.password, saltRounds);
-
+    let isAdmin = false;
+    if (authInfo.is_admin) {
+      isAdmin = authInfo.is_admin;
+    }
     user = await ctx.orm.User.create({
       username: authInfo.username,
       password: hashPassword,
       mail: authInfo.email,
+      is_admin: isAdmin,
     });
   } catch (error) {
     ctx.body = error;
@@ -58,8 +57,6 @@ router.post('authentication.login', '/login', async (ctx) => {
     ctx.status = 400;
     return;
   }
-  console.log(user.password);
-  console.log(authInfo.password);
 
   const validPassword = await bcrypt.compare(authInfo.password, user.password);
 
@@ -77,15 +74,21 @@ router.post('authentication.login', '/login', async (ctx) => {
   // Creamos el JWT. Si quisieras agregar distintos scopes, como por ejemplo
   // "admin", podrían hacer un llamado a la base de datos y cambiar el payload
   // en base a eso.
+  const payload = { scope: ['user'] }; // Scope inicialmente configurado como 'user'
+
+  if (user.is_admin) {
+    payload.scope.push('admin'); // Si es administrador, se agrega el scope 'admin'
+  }
+
   const expirationSeconds = 1 * 60 * 60 * 24;
   const JWT_PRIVATE_KEY = process.env.JWT_SECRET;
   const token = jwt.sign(
-    { scope: ['user'] },
+    payload,
     JWT_PRIVATE_KEY,
     {
       subject: user.id.toString(),
-      expiresIn: expirationSeconds
-    }
+      expiresIn: expirationSeconds,
+    },
   );
   ctx.body = {
     access_token: token,

@@ -1,4 +1,3 @@
-'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -7,17 +6,17 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       mazo_central: {
         allowNull: false,
         type: Sequelize.BOOLEAN,
-        defaultValue: false
+        defaultValue: false,
       },
       mazo_basura: {
         allowNull: false,
         type: Sequelize.BOOLEAN,
-        defaultValue: false
+        defaultValue: false,
       },
       player_id: {
         allowNull: false,
@@ -25,10 +24,10 @@ module.exports = {
         defaultValue: 1, // Establecer el valor predeterminado como 1
         references: {
           model: 'Players',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        onDelete: 'CASCADE',
       },
       createdAt: {
         allowNull: true,
@@ -36,11 +35,11 @@ module.exports = {
       },
       updatedAt: {
         allowNull: true,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface) {
     await queryInterface.dropTable('Mazos');
-  }
+  },
 };

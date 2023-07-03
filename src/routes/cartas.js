@@ -1,22 +1,9 @@
+/* eslint-disable camelcase */
 // se hizo en base a las cápsulas del ramo
-const multer = require('multer');
 
 const Router = require('koa-router');
 
 const router = new Router();
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'src/imagenes');
-  },
-  filename: (req, file, cb) => {
-    // Generar un nombre único para el archivo
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    const filename = file.fieldname + '-' + uniqueSuffix + '.' + file.originalname.split('.').pop();
-    cb(null, filename);
-  }
-});
-const upload = multer({ storage });
 
 router.get('cartas.list', '/list', async (ctx) => {
   try {
