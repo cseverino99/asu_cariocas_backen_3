@@ -25,7 +25,11 @@ para el caso de nuestro proyecto este archivo tiene la siguiente forma:
     DB_NAME = asu_cariocas
 
     DB_HOST = 'localhost'
+
+    JWT_SECRET=clave_secreta
     
+# importante, para la entrega final se agrega el jwt_secret en el .env 
+
 Para instalar la BDD se debe, en primer lugar instalar postgresql, para eso nos basamos en las cápsulas del ramo, específicamente la cápsula 6 de "Configuración Postgres"
 
 Una vez instalado se debe empezar el servidor con el siguiente código
