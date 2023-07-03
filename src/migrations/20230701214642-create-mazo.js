@@ -22,6 +22,7 @@ module.exports = {
       player_id: {
         allowNull: false,
         type: Sequelize.INTEGER,
+        defaultValue: 1, // Establecer el valor predeterminado como 1
         references: {
           model: 'Players',
           key: 'id'
@@ -30,11 +31,11 @@ module.exports = {
         onDelete: 'CASCADE'
       },
       createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+        allowNull: true,
+        type: Sequelize.DATE,
       },
       updatedAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       }
     });

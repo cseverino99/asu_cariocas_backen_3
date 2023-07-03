@@ -129,25 +129,25 @@ Tiene un tipos de consulta,  GET,  se encuentran en las siguientes ubiaciones:"m
                 "id": 1,
                 "rank": "A",
                 "suit": "Spades",
-                "mazoId": 3
+                "mazo_id": 3
             },
             {
                 "id": 2,
                 "rank": "K",
                 "suit": "Hearts",
-                "mazoId": 3
+                "mazo_id": 3
             },
             {
                 "id": 3,
                 "rank": "Q",
                 "suit": "Diamonds",
-                "mazoId": 3
+                "mazo_id": 3
             },
             {
                 "id": 4,
                 "rank": "J",
                 "suit": "Clubs",
-                "mazoId": 3
+                "mazo_id": 3
             }
         ]
     },

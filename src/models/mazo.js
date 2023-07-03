@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
   class Mazo extends Model {
     static associate(models) {
       this.belongsTo(models.Player, {
-        foreignKey: 'playerId',
+        foreignKey: 'player_id',
       });
       this.hasMany(models.Carta, {
         foreignKey: 'id',
