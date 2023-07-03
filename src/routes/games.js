@@ -1,4 +1,5 @@
 const Router = require('koa-router');
+const authUtils = require('../lib/auth/jwt');
 
 const router = new Router();
 
@@ -45,7 +46,7 @@ router.get('games.list', '/list', async (ctx) => {
   }
 });
 
-router.post('games.create', '/create', async (ctx) => {
+router.post('games.create', '/create', authUtils.isAdmin, async (ctx) => {
   try {
     const { winnerId } = ctx.request.body;
     const game = await ctx.orm.Game.create({
@@ -54,6 +55,27 @@ router.post('games.create', '/create', async (ctx) => {
 
     ctx.body = game;
     ctx.status = 201;
+  } catch (error) {
+    ctx.body = error;
+    ctx.status = 400;
+  }
+});
+
+router.delete('games.delete', '/delete/:id', authUtils.isAdmin, async (ctx) => {
+  try {
+    const gameId = ctx.params.id;
+
+    const game = await ctx.orm.Game.findByPk(gameId);
+
+    if (!game) {
+      ctx.status = 404; // Not Found
+      ctx.body = { message: 'Game not found' };
+      return;
+    }
+
+    await game.destroy();
+
+    ctx.status = 204;
   } catch (error) {
     ctx.body = error;
     ctx.status = 400;
